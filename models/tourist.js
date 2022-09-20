@@ -1,11 +1,6 @@
 const mongoose = require("mongoose");
 
 // tourist schema design
-const addressSchema = mongoose.Schema({
-	street: String,
-	city: String,
-	require: true,
-});
 
 const touristSchema = mongoose.Schema({
 	name: {
@@ -22,14 +17,27 @@ const touristSchema = mongoose.Schema({
 		unique: [true, "Email must be unique"],
 		lowercase: true,
 	},
-	address: addressSchema,
+	address: {
+		street: String,
+		city: String,
+		require: true,
+		default: "Main st. NY",
+	},
 	gender: {
 		type: String,
-		required: true,
+		required: [true, "Gender is required"],
 	},
 	age: {
 		type: Number,
-		required: true,
+		required: [true, "Age is required"],
+	},
+	destination: {
+		type: String,
+		required: [true, "Destination is required"],
+	},
+	price: {
+		type: Number,
+		required: [true, "Price is required"],
 	},
 	arrivalTime: {
 		type: Date,
