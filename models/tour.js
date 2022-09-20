@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-// tourist schema design
+// tour schema design
 
 const tourSchema = mongoose.Schema({
 	name: {
@@ -22,10 +22,11 @@ const tourSchema = mongoose.Schema({
 		required: [true, "Image is required"],
 	},
 	address: {
-		street: String,
-		city: String,
-		require: true,
-		default: "Main st. NY",
+		type: String,
+		// street: String,
+		// city: String,
+		required: true,
+		// default: "Main st. NY",
 	},
 	gender: {
 		type: String,
