@@ -13,7 +13,7 @@ app.get("/", (req, res) => {
 	res.send("Route is working");
 });
 
-mongoose.connect(process.env.DATABASE_LOCAL).then(() => {
+mongoose.connect(process.env.DATABASE).then(() => {
 	console.log("Database connection is successful");
 });
 

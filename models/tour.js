@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 // tourist schema design
 
-const touristSchema = mongoose.Schema({
+const tourSchema = mongoose.Schema({
 	name: {
 		type: String,
 		required: [true, "Tourist name is required"],
@@ -16,6 +16,10 @@ const touristSchema = mongoose.Schema({
 		required: [true, "Email is required"],
 		unique: [true, "Email must be unique"],
 		lowercase: true,
+	},
+	image: {
+		type: String,
+		required: [true, "Image is required"],
 	},
 	address: {
 		street: String,
@@ -50,4 +54,4 @@ const touristSchema = mongoose.Schema({
 	},
 });
 
-module.exports = mongoose.model("Tourist", touristSchema);
+module.exports = mongoose.model("Tour", tourSchema);
