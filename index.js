@@ -5,6 +5,7 @@ const app = express();
 require("dotenv").config();
 const port = process.env.PORT || 8000;
 const tourRoute = require("./routes/tour.route");
+const viewCount = require("./middleware/viewCount");
 
 // Middleware
 app.use(express.json());
