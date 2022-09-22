@@ -1,4 +1,5 @@
 const Tour = require("../models/tour");
+const mongoose = require("mongoose");
 
 exports.getTours = async (req, res, next) => {
 	try {
@@ -7,6 +8,25 @@ exports.getTours = async (req, res, next) => {
 			status: "Success",
 			message: "Successfully got all tours data",
 			data: tours,
+		});
+	} catch (error) {
+		res.status(400).json({
+			status: "fail",
+			message: "Cannot get data",
+			error: error.message,
+		});
+	}
+};
+
+exports.getTourDetails = async (req, res, next) => {
+	try {
+		const { id } = req.params;
+		const result = await Tour.findById(id);
+		console.log(result);
+		res.status(200).json({
+			status: "Success",
+			message: "Successfully got tour data",
+			data: result,
 		});
 	} catch (error) {
 		res.status(400).json({
