@@ -1,6 +1,6 @@
 const Tour = require("../models/tour");
 
-exports.getTours = async () => {
+exports.getTours = async (req, res, next) => {
 	try {
 		const tours = await Tour.find({});
 		res.status(200).json({
