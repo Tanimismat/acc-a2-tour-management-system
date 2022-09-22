@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 // tour schema design
 
 const tourSchema = mongoose.Schema({
-	name: {
+	userName: {
 		type: String,
 		required: [true, "Tourist name is required"],
 		unique: [true, "Name must be unique"],
@@ -16,6 +16,9 @@ const tourSchema = mongoose.Schema({
 		required: [true, "Email is required"],
 		unique: [true, "Email must be unique"],
 		lowercase: true,
+	},
+	phone: {
+		type: Number,
 	},
 	image: {
 		type: String,
@@ -39,6 +42,15 @@ const tourSchema = mongoose.Schema({
 	destination: {
 		type: String,
 		required: [true, "Destination is required"],
+	},
+	package: {
+		type: [String],
+		required: [true, "Please mention package"],
+		enum: {
+			values: ["Standard", "Premium", "Luxurious", "Platinum"],
+			message:
+				"Please choose a package from Standard, Premium, Luxurious, Platinum",
+		},
 	},
 	price: {
 		type: Number,
