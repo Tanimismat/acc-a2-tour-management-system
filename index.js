@@ -11,7 +11,7 @@ const viewCount = require("./middleware/viewCount");
 app.use(express.json());
 app.use(cors());
 
-app.use("/api/v1/tours", tourRoute);
+app.use("/api/v1", tourRoute);
 
 app.get("/", (req, res) => {
 	res.send("Route is working");
