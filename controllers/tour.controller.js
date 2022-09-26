@@ -16,11 +16,17 @@ exports.getTours = async (req, res, next) => {
 			queries.skipValue = skipValue;
 			queries.limit = +limit;
 		}
+		if (req.query.sort) {
+			const sortBy = req.query.sort.split(",").join(" ");
+			queries.sortBy = sortBy;
+			// console.log(sortBy);
+		}
 
 		const tours = await Tour.find({})
 			.select(queries.fields)
 			.skip(queries.skipValue)
-			.limit(queries.limit);
+			.limit(queries.limit)
+			.sort(queries.sortBy);
 
 		// const totalTour = Tour.countDocuments({});
 
