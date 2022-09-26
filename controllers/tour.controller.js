@@ -3,11 +3,21 @@ const mongoose = require("mongoose");
 
 exports.getTours = async (req, res, next) => {
 	try {
-		const tours = await Tour.find({});
+		const queries = {};
+
+		if (req.query.fields) {
+			const fields = req.query.fields.split(",").join(" ");
+			queries.fields = fields;
+			console.log(fields);
+		}
+		const tours = await Tour.find({}).select(queries.fields);
+
+		// const totalTour = Tour.countDocuments({});
+
 		res.status(200).json({
 			status: "Success",
 			message: "Successfully got all tours data",
-			data: tours,
+			data: { tours },
 		});
 	} catch (error) {
 		res.status(400).json({
