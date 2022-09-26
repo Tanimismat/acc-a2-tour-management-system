@@ -8,9 +8,19 @@ exports.getTours = async (req, res, next) => {
 		if (req.query.fields) {
 			const fields = req.query.fields.split(",").join(" ");
 			queries.fields = fields;
-			console.log(fields);
+			// console.log(fields);
 		}
-		const tours = await Tour.find({}).select(queries.fields);
+		if (req.query.page) {
+			const { page = 1, limit = 3 } = req.query;
+			const skipValue = (page - 1) * +limit;
+			queries.skipValue = skipValue;
+			queries.limit = +limit;
+		}
+
+		const tours = await Tour.find({})
+			.select(queries.fields)
+			.skip(queries.skipValue)
+			.limit(queries.limit);
 
 		// const totalTour = Tour.countDocuments({});
 
