@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const viewCount = require("../middleware/viewCount");
 
 // tour schema design
 
@@ -64,6 +65,11 @@ const tourSchema = mongoose.Schema({
 	departureTime: {
 		type: Date,
 		default: Date.now,
+	},
+	views: {
+		type: Number,
+		total: viewCount,
+		default: 0,
 	},
 });
 

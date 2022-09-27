@@ -1,5 +1,6 @@
 const Tour = require("../models/tour");
 const mongoose = require("mongoose");
+const viewCount = require("../middleware/viewCount");
 
 exports.getTours = async (req, res, next) => {
 	try {
@@ -28,12 +29,12 @@ exports.getTours = async (req, res, next) => {
 			.limit(queries.limit)
 			.sort(queries.sortBy);
 
-		// const totalTour = Tour.countDocuments({});
+		let totalTours = await Tour.countDocuments();
 
 		res.status(200).json({
 			status: "Success",
 			message: "Successfully got all tours data",
-			data: { tours },
+			data: { totalTours, tours },
 		});
 	} catch (error) {
 		res.status(400).json({
@@ -46,8 +47,9 @@ exports.getTours = async (req, res, next) => {
 
 exports.getTourDetails = async (req, res, next) => {
 	try {
-		const { id } = req.params;
-		const result = await Tour.findById(id);
+		const { _id } = req.params;
+		console.log(_id);
+		const result = await Tour.findOneAndUpdate(_id, { $inc: { views: 1 } });
 		console.log(result);
 		res.status(200).json({
 			status: "Success",
@@ -96,6 +98,29 @@ exports.updateATour = async (req, res, next) => {
 			status: "Success",
 			message: "Data updated successfully",
 			data: result,
+		});
+	} catch (error) {
+		res.status(400).json({
+			status: "fail",
+			message: "Data cannot be updated",
+			error: error.message,
+		});
+	}
+};
+
+exports.getTrendingTour = async (req, res, next) => {
+	try {
+		const queries = {};
+		if (req.query.sort) {
+			const sortBy = req.query.sort(viewCount);
+			queries.sortBy = sortBy;
+			// console.log(sortBy);
+		}
+		const tours = await Tour.find({}).sort(queries.sortBy);
+		res.status(200).json({
+			status: "Success",
+			message: "Data updated successfully",
+			data: tours,
 		});
 	} catch (error) {
 		res.status(400).json({
