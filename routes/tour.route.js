@@ -5,6 +5,8 @@ const viewCount = require("../middleware/viewCount");
 
 router.route("/tour/trending").get(tourController.getTrendingTour);
 
+router.route("/tour/cheapest").get(tourController.getCheapestTour);
+
 router
 	.route("/tours")
 	.get(tourController.getTours)

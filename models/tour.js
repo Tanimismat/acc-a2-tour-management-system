@@ -68,7 +68,7 @@ const tourSchema = mongoose.Schema({
 	},
 	views: {
 		type: Number,
-		total: viewCount,
+		// total: viewCount,
 		default: 0,
 	},
 });
