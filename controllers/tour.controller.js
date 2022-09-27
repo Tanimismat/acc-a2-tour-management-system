@@ -47,7 +47,7 @@ exports.getTours = async (req, res, next) => {
 
 exports.getTourDetails = async (req, res, next) => {
 	try {
-		const { _id } = req.params;
+		const { _id } = req.query;
 		console.log(_id);
 		const result = await Tour.findOneAndUpdate(_id, { $inc: { views: 1 } });
 		console.log(result);
@@ -116,7 +116,7 @@ exports.getTrendingTour = async (req, res, next) => {
 			queries.sortBy = sortBy;
 			// console.log(sortBy);
 		}
-		const tours = await Tour.find({}).sort(queries.sortBy);
+		const tours = await (await Tour.find({}).sort(queries.sortBy)).splice(0, 3);
 		res.status(200).json({
 			status: "Success",
 			message: "Data updated successfully",
